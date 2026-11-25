@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SellerScope: Marketplace SEO & Net Profit Margin Toolkit</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Application Header -->
+  <header class="app-header">
+    <div class="brand-group">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>SellerScope Toolkit</h1>
+        <p>Marketplace SEO & Net Profit Margin Analyzer</p>
+      </div>
+    </div>
+    <div class="header-badges">
+      <span class="badge-pill badge-offline">100% Offline (Zero internet needed)</span>
+      <span class="badge-pill badge-private">100% Private (Saved on your device)</span>
+    </div>
+  </header>
+
+  <!-- Quick Starter Presets Bar -->
+  <section class="preset-bar">
+    <div class="preset-selector-group">
+      <label for="starterPresetSelect">Select Preset:</label>
+      <select id="starterPresetSelect" class="preset-select">
+        <option value="etsy_planner">Etsy: 2026 Digital Daily Planner & GoodNotes Template</option>
+        <option value="gumroad_notion">Gumroad: Notion Complete Business OS & Finance Hub</option>
+        <option value="whop_community">Whop: E-Commerce Accelerator Pass & Discord VIP</option>
+        <option value="custom">Blank Custom Listing Draft</option>
+      </select>
+    </div>
+    <button id="btnLoadPreset" class="btn-sm" type="button">Load</button>
+  </section>
+
+  <!-- Tab Navigation -->
+  <nav class="tab-navigation">
+    <button class="tab-btn active" data-tab="tabSeo" type="button">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      SEO Studio
+    </button>
+    <button class="tab-btn" data-tab="tabProfit" type="button">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+      Net Profit
+    </button>
+    <button class="tab-btn" data-tab="tabAudit" type="button">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      Health Audit
+    </button>
+    <button class="tab-btn" data-tab="tabVault" type="button">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      Snippet Vault
+    </button>
+  </nav>
+
+  <!-- MAIN TAB 1: SEO Studio -->
+  <main id="tabSeo" class="tab-content active">
+    <!-- Title Optimizer Card -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 4v3h5v12h3V7h5V4H5z"/></svg>
+          140-Character Listing Title Optimizer
+        </h2>
+        <span id="titleLenBadge" class="card-meta">0 / 140 chars</span>
+      </div>
+
+      <div class="form-group">
+        <label for="inputTitle" class="input-label">
+          <span>Marketplace Title (Etsy, Gumroad, Whop)</span>
+          <span id="titleStatusText" style="color: var(--amber);">Needs optimization</span>
+        </label>
+        <textarea id="inputTitle" class="textarea-field" placeholder="Enter your full marketplace title..." rows="3"></textarea>
+        <div class="progress-container">
+          <div id="titleProgressBar" class="progress-bar warning" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="metrics-row" style="margin-top: 8px;">
+        <span class="metrics-row-label">Front-Loaded Keyword (First 40 Chars):</span>
+        <span id="first40Keywords" class="metrics-row-val">None detected</span>
+      </div>
+      <div class="metrics-row">
+        <span class="metrics-row-label">Automated Formula Readability Score:</span>
+        <span id="titleReadabilityScore" class="metrics-row-val">Pending Input</span>
+      </div>
+    </section>
+
+    <!-- 13-Tag SEO Validator Card -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+          13-Tag SEO Quality Validator
+        </h2>
+        <span id="tagCountBadge" class="card-meta">0 / 13 Tags</span>
+      </div>
+
+      <div class="form-group">
+        <div class="tag-input-row">
+          <input id="inputNewTag" type="text" class="input-field" placeholder="Type tag (or paste comma-separated list) and press Enter..." maxlength="40">
+          <button id="btnAddTag" class="btn-sm" type="button" style="background: var(--primary); color: #fff;">Add Tag</button>
+          <button id="btnClearTags" class="btn-sm" type="button">Clear</button>
+        </div>
+      </div>
+
+      <!-- Tag Chips Container -->
+      <div id="tagChipsContainer" class="tag-chips-grid">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div id="tagValidationAlert" style="display: none; margin-top: 8px; font-size: 11px; padding: 6px 10px; border-radius: 4px; background: var(--rose-light); color: #FDA4AF; border: 1px solid var(--rose);">
+        <!-- Warning alert text -->
+      </div>
+
+      <!-- Suggested Buyer Keywords Bar -->
+      <div class="suggested-tags-box">
+        <div class="suggested-tags-title">
+          <span>High-Converting Keyword Recommendations:</span>
+          <span style="font-size: 9px; opacity: 0.8;">Click to insert tag</span>
+        </div>
+        <div id="suggestedChipsRow" class="suggested-chips">
+          <button class="suggested-chip-btn" type="button" data-tag="digital download">+ digital download</button>
+          <button class="suggested-chip-btn" type="button" data-tag="instant access">+ instant access</button>
+          <button class="suggested-chip-btn" type="button" data-tag="printable planner">+ printable planner</button>
+          <button class="suggested-chip-btn" type="button" data-tag="commercial license">+ commercial license</button>
+          <button class="suggested-chip-btn" type="button" data-tag="goodnotes template">+ goodnotes template</button>
+          <button class="suggested-chip-btn" type="button" data-tag="notion template">+ notion template</button>
+          <button class="suggested-chip-btn" type="button" data-tag="small business">+ small business</button>
+          <button class="suggested-chip-btn" type="button" data-tag="ipad productivity">+ ipad productivity</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MAIN TAB 2: Net Profit Calculator -->
+  <main id="tabProfit" class="tab-content">
+    <!-- Platform Fee Switcher -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">Target Marketplace Platform</h2>
+        <span class="card-meta">Live 2026 Fee Schedules</span>
+      </div>
+      <div class="platform-selector">
+        <label class="platform-radio-label selected" id="lblEtsy">
+          <input type="radio" name="platformChoice" value="etsy" checked>
+          <span class="platform-name">Etsy</span>
+          <span class="platform-fee-tag">6.5% + $0.20 + 3%</span>
+        </label>
+        <label class="platform-radio-label" id="lblGumroad">
+          <input type="radio" name="platformChoice" value="gumroad">
+          <span class="platform-name">Gumroad</span>
+          <span class="platform-fee-tag">10% flat + 2.9%+$0.30</span>
+        </label>
+        <label class="platform-radio-label" id="lblWhop">
+          <input type="radio" name="platformChoice" value="whop">
+          <span class="platform-name">Whop</span>
+          <span class="platform-fee-tag">3.0% + 2.9%+$0.30</span>
+        </label>
+      </div>
+
+      <!-- Pricing & Expense Inputs -->
+      <div class="profit-input-grid">
+        <div class="form-group">
+          <label for="numSalePrice" class="input-label">Listing Sale Price ($)</label>
+          <input id="numSalePrice" type="number" step="0.01" min="0" value="38.00" class="input-field">
+        </div>
+        <div class="form-group">
+          <label for="numUnitsSold" class="input-label">Forecasted Sales (Units)</label>
+          <input id="numUnitsSold" type="number" step="1" min="1" value="25" class="input-field">
+        </div>
+        <div class="form-group">
+          <label for="numItemCost" class="input-label">Product Cost / COGS ($)</label>
+          <input id="numItemCost" type="number" step="0.01" min="0" value="2.50" class="input-field">
+        </div>
+        <div class="form-group">
+          <label for="numShippingFee" class="input-label">Shipping Charged ($)</label>
+          <input id="numShippingFee" type="number" step="0.01" min="0" value="0.00" class="input-field">
+        </div>
+        <div class="form-group">
+          <label for="numShippingActual" class="input-label">Shipping Actual Cost ($)</label>
+          <input id="numShippingActual" type="number" step="0.01" min="0" value="0.00" class="input-field">
+        </div>
+        <div class="form-group">
+          <label for="numOffsiteAdsPct" class="input-label">
+            <span id="lblOffsitePromo">Offsite Ads / Referral %</span>
+          </label>
+          <input id="numOffsiteAdsPct" type="number" step="0.5" min="0" max="50" value="0" class="input-field">
+        </div>
+      </div>
+
+      <!-- Highlight Hero Payout -->
+      <div class="profit-hero-box">
+        <div class="profit-hero-label">Net Take-Home Profit (Per Sale)</div>
+        <div id="dispNetProfitPerUnit" class="profit-hero-amount">$29.61</div>
+        <div>
+          <span id="dispNetMarginBadge" class="profit-hero-margin">77.9% Net Margin</span>
+        </div>
+      </div>
+
+      <!-- Financial Metrics Breakdown -->
+      <div class="metrics-row">
+        <span class="metrics-row-label">Gross Revenue per Order:</span>
+        <span id="dispGrossRevenue" class="metrics-row-val">$38.00</span>
+      </div>
+      <div class="metrics-row">
+        <span class="metrics-row-label">Marketplace Platform Deductions:</span>
+        <span id="dispPlatformFees" class="metrics-row-val fee">-$5.89</span>
+      </div>
+      <div class="metrics-row">
+        <span class="metrics-row-label">Total Product & Shipping Expense:</span>
+        <span id="dispTotalCosts" class="metrics-row-val">-$2.50</span>
+      </div>
+      <div class="metrics-row">
+        <span class="metrics-row-label">Total Forecast Batch Profit (25 Units):</span>
+        <span id="dispBatchNetProfit" class="metrics-row-val" style="color: var(--emerald); font-weight: 700;">$740.25</span>
+      </div>
+      <div class="metrics-row">
+        <span class="metrics-row-label">Zero-Profit Break-Even Price:</span>
+        <span id="dispBreakEvenPrice" class="metrics-row-val">$3.42</span>
+      </div>
+    </section>
+
+    <!-- Side-by-Side Platform Comparison Table -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">Side-by-Side Marketplace Comparison</h2>
+        <span class="card-meta">At current price</span>
+      </div>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Marketplace</th>
+            <th>Total Fees</th>
+            <th>Take-Home</th>
+            <th>Margin</th>
+          </tr>
+        </thead>
+        <tbody id="comparisonTableBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- MAIN TAB 3: Listing Health Audit -->
+  <main id="tabAudit" class="tab-content">
+    <section class="card">
+      <div class="health-gauge-box" style="--score-pct: 92;">
+        <div class="score-circle">
+          <div class="score-inner">
+            <span id="healthScoreNumber" class="score-number">92</span>
+            <span class="score-label">Score</span>
+          </div>
+        </div>
+        <div class="health-status-desc">
+          <h3 id="healthRatingTitle">High-Ranking Listing</h3>
+          <p id="healthRatingSummary">Your listing satisfies key marketplace search factors with strong profit margins.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size: 11px; text-transform: uppercase; color: var(--accent-sky); margin-bottom: 6px;">Audit Checklist</h3>
+      <ul class="audit-checklist">
+        <li class="audit-check-item">
+          <span id="chkTitleLenIcon" class="audit-icon pass">✓</span>
+          <span id="chkTitleLenText">Title length between 100 and 140 characters</span>
+        </li>
+        <li class="audit-check-item">
+          <span id="chkKeywordFrontIcon" class="audit-icon pass">✓</span>
+          <span id="chkKeywordFrontText">Primary search term in first 40 characters</span>
+        </li>
+        <li class="audit-check-item">
+          <span id="chkTagCountIcon" class="audit-icon pass">✓</span>
+          <span id="chkTagCountText">Full 13 tags utilized</span>
+        </li>
+        <li class="audit-check-item">
+          <span id="chkTagLengthIcon" class="audit-icon pass">✓</span>
+          <span id="chkTagLengthText">All tags within 20 character limit</span>
+        </li>
+        <li class="audit-check-item">
+          <span id="chkTagDuplicatesIcon" class="audit-icon pass">✓</span>
+          <span id="chkTagDuplicatesText">Zero duplicate tags detected</span>
+        </li>
+        <li class="audit-check-item">
+          <span id="chkProfitMarginIcon" class="audit-icon pass">✓</span>
+          <span id="chkProfitMarginText">Net profit margin exceeds 50%</span>
+        </li>
+      </ul>
+
+      <div class="action-buttons-bar">
+        <button id="btnExportCsv" class="btn-primary" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+          Export CSV Report
+        </button>
+        <button id="btnExportJson" class="btn-secondary" type="button">
+          Backup Data (JSON)
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- MAIN TAB 4: Snippet Vault -->
+  <main id="tabVault" class="tab-content">
+    <div class="snippet-category-tabs">
+      <button class="snippet-cat-btn active" data-cat="all" type="button">All Snippets</button>
+      <button class="snippet-cat-btn" data-cat="hooks" type="button">Description Hooks</button>
+      <button class="snippet-cat-btn" data-cat="faq" type="button">Customer FAQs</button>
+      <button class="snippet-cat-btn" data-cat="license" type="button">Licensing & Terms</button>
+      <button class="snippet-cat-btn" data-cat="urgency" type="button">Discounts & Offers</button>
+    </div>
+
+    <div id="snippetsContainer">
+      <!-- Dynamically rendered snippet cards -->
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast-notice">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color: var(--emerald);"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+    <span id="toastMessage">Copied to clipboard!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <span>Automated Formulas • 100% Offline (Zero internet needed)</span>
+    <span>v1.0.0</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
